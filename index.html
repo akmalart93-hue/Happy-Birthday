@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday Fathiyya Salma Azizah 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400;700&family=Sacramento&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --rose:#E8637A; --rose-lt:#F4A7B5; --rose-pal:#FDE8ED;
+  --peach:#F2A67D; --peach-lt:#FDDCC9;
+  --cream:#FFF7F0; --gold:#D4A853; --gold-lt:#F0D08A;
+  --sage:#B8C9A3; --lav:#C9A8D4; --lav-lt:#EBD9F2;
+  --bg-top:#FFF0F5; --bg-mid:#FEE8F2; --bg-bot:#F9E4F0;
+  --txt-dark:#5C2D3A; --txt-mid:#9A5068; --txt-soft:#C48898;
+  --white:#FFFFFF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100vh;overflow-x:hidden;font-family:'Lato',sans-serif;background:linear-gradient(160deg,var(--bg-top),var(--bg-mid),var(--bg-bot));color:var(--txt-dark)}
+
+#bg-canvas,#conf-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+#conf-canvas{z-index:7}
+#balloon-layer{position:fixed;inset:0;pointer-events:none;z-index:6;overflow:hidden}
+
+/* MUSIK BTN */
+#music-btn{
+  position:fixed;top:16px;right:16px;z-index:9999;
+  background:rgba(255,255,255,0.7);border:1.5px solid rgba(232,99,122,0.35);
+  backdrop-filter:blur(14px);color:var(--rose);
+  font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;
+  padding:10px 20px;border-radius:30px;cursor:pointer;transition:all .3s;text-transform:uppercase;
+  box-shadow:0 4px 16px rgba(232,99,122,0.12);
+}
+#music-btn:hover{background:rgba(255,255,255,0.92);transform:scale(1.05);box-shadow:0 6px 24px rgba(232,99,122,0.22)}
+
+/* SECTION */
+.section{
+  position:fixed;inset:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px 20px 90px;
+  transition:opacity .8s ease,transform .8s ease;
+}
+.section.hidden{opacity:0;pointer-events:none;transform:scale(1.04)}
+
+/* DECO LINE */
+.deco-line{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.deco-line::before,.deco-line::after{content:'';flex:1;max-width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--rose-lt),transparent)}
+.deco-text{font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--rose-lt)}
+
+/* ===== SEC 0 COUNTDOWN ===== */
+#sec-cd{
+  background:
+    radial-gradient(ellipse at 15% 85%,rgba(201,168,212,.25) 0%,transparent 50%),
+    radial-gradient(ellipse at 85% 15%,rgba(242,166,125,.2) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 50%,#FFF0F5 0%,#FEE4F0 100%);
+  text-align:center;
+}
+.cd-eyebrow{font-family:'Sacramento',cursive;font-size:clamp(18px,4vw,28px);color:var(--rose-lt);margin-bottom:6px;animation:gentle-float 4s ease-in-out infinite}
+#sec-cd h1{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5.5vw,46px);font-weight:600;color:var(--txt-dark);line-height:1.25;margin-bottom:6px}
+.cd-sub{font-family:'Lato',sans-serif;font-size:clamp(12px,2.5vw,15px);font-weight:300;letter-spacing:2px;color:var(--txt-soft);margin-bottom:32px}
+
+/* HEART BOXES */
+.cd-grid{display:flex;gap:clamp(8px,2.5vw,18px);justify-content:center;flex-wrap:wrap;align-items:flex-start}
+.cd-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.cd-heart{
+  position:relative;width:clamp(78px,18vw,112px);height:clamp(78px,18vw,112px);
+  display:flex;align-items:center;justify-content:center;
+  filter:drop-shadow(0 6px 18px rgba(232,99,122,.28));transition:transform .3s;
+}
+.cd-heart:hover{transform:scale(1.08)}
+.cd-heart svg{position:absolute;inset:0;width:100%;height:100%}
+.heart-path{fill:rgba(255,255,255,.88);stroke:var(--rose-lt);stroke-width:2}
+.cd-num{position:relative;z-index:2;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,7vw,50px);font-weight:600;color:var(--rose);line-height:1}
+.cd-lbl{font-family:'Josefin Sans',sans-serif;font-size:clamp(8px,1.8vw,10px);letter-spacing:3px;text-transform:uppercase;color:var(--txt-soft)}
+.cd-sep{font-family:'Sacramento',cursive;font-size:clamp(20px,4.5vw,32px);color:var(--rose-lt);padding-top:clamp(20px,4.5vw,34px);line-height:1;opacity:.7}
+
+/* YEAR AGE BADGE */
+.badge-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.badge{
+  display:flex;flex-direction:column;align-items:center;
+  background:rgba(255,255,255,.72);border:1.5px solid rgba(232,99,122,.2);
+  border-radius:16px;padding:10px 22px;backdrop-filter:blur(10px);
+  box-shadow:0 4px 16px rgba(232,99,122,.1);min-width:105px;
+}
+.badge-val{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(22px,5vw,34px);color:var(--rose);line-height:1}
+.badge-val.gold{color:var(--gold)}
+.badge-lbl{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--txt-soft);margin-top:4px}
+
+.name-tag{margin-top:22px;font-family:'Sacramento',cursive;font-size:clamp(22px,5.5vw,40px);color:var(--rose);text-shadow:0 2px 20px rgba(232,99,122,.2);animation:gentle-float 5s ease-in-out infinite}
+
+/* ===== SEC 1 GIFT ===== */
+#sec-gift{
+  background:
+    radial-gradient(ellipse at 20% 80%,rgba(201,168,212,.2) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 20%,rgba(232,99,122,.12) 0%,transparent 50%),
+    linear-gradient(160deg,#FFF4F9,#FDE8F0,#FFF0E8);
+  text-align:center;
+}
+.gift-wrap{cursor:pointer;margin-bottom:24px}
+.gift-box{width:clamp(130px,30vw,178px);height:clamp(130px,30vw,178px);position:relative;margin:0 auto 12px;animation:gift-float 3.5s ease-in-out infinite;filter:drop-shadow(0 14px 32px rgba(232,99,122,.3))}
+.g-body{position:absolute;bottom:0;left:0;right:0;height:72%;background:linear-gradient(135deg,var(--rose),#C0405A);border-radius:10px}
+.g-body::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:18%;transform:translateX(-50%);background:rgba(212,168,83,.8)}
+.g-lid{position:absolute;top:-6px;left:-5%;width:110%;height:32%;background:linear-gradient(135deg,var(--rose-lt),var(--rose));border-radius:10px 10px 0 0;transition:transform .65s cubic-bezier(.4,0,.2,1)}
+.g-lid::before{content:'';position:absolute;left:45%;top:0;bottom:0;width:18%;transform:translateX(-50%);background:rgba(212,168,83,.8)}
+.g-bow{position:absolute;top:-46px;left:50%;transform:translateX(-50%);font-size:clamp(30px,8vw,46px)}
+.g-shine{position:absolute;top:8%;right:8%;width:26%;height:26%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.45),transparent);pointer-events:none}
+.gift-wrap.opened .g-lid{transform:translateY(-54px) rotateX(-28deg) rotate(-14deg)}
+#sec-gift h2{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,5vw,30px);font-weight:600;color:var(--txt-dark);margin-bottom:10px}
+#sec-gift .gsub{font-family:'Lato',sans-serif;font-weight:300;font-size:clamp(13px,2.8vw,16px);color:var(--txt-soft);line-height:1.8}
+
+/* ===== SEC 2 JOKE ===== */
+#sec-joke{background:linear-gradient(160deg,#FFF0F9,#FDE4F2,#F9EEFF);text-align:center}
+.joke-ico{font-size:clamp(50px,13vw,78px);display:block;margin-bottom:20px;animation:heartbeat 1.5s ease-in-out infinite}
+#sec-joke h2{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,6vw,44px);font-weight:600;color:var(--rose);margin-bottom:14px}
+#sec-joke p{font-family:'Lato',sans-serif;font-weight:300;font-size:clamp(14px,3vw,18px);color:var(--txt-mid);max-width:460px;line-height:1.9;margin-bottom:32px}
+#sec-joke p em{font-style:italic;color:var(--rose);font-weight:400}
+
+/* ===== SEC 3 GALLERY ===== */
+#sec-gallery{
+  background:
+    radial-gradient(ellipse at 80% 20%,rgba(201,168,212,.25) 0%,transparent 55%),
+    linear-gradient(160deg,#FFF4F9,#FEE8F2,#FFF8F0);
+  text-align:center;overflow-y:auto;justify-content:flex-start;padding-top:60px;padding-bottom:90px;
+}
+#sec-gallery h2{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,5.5vw,40px);font-weight:600;color:var(--txt-dark);margin-bottom:5px}
+#sec-gallery .sub{font-family:'Lato',sans-serif;font-weight:300;font-size:clamp(12px,2.5vw,15px);letter-spacing:1px;color:var(--txt-soft);margin-bottom:28px}
+.pol-grid{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;max-width:860px;margin:0 auto 30px}
+.pol{
+  background:#fff;padding:9px 9px 40px;
+  box-shadow:0 8px 30px rgba(92,45,58,.12),0 2px 8px rgba(232,99,122,.08);
+  border-radius:2px;width:clamp(118px,26vw,185px);
+  transform:rotate(var(--rot));transition:transform .3s ease,box-shadow .3s;
+  opacity:0;animation:pol-in .65s ease forwards;animation-delay:var(--del);
+}
+.pol:hover{transform:rotate(0deg) scale(1.08)!important;box-shadow:0 20px 60px rgba(92,45,58,.2),0 4px 18px rgba(232,99,122,.18);z-index:20}
+.pol img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-radius:1px;filter:saturate(1.05)}
+.pol-cap{font-family:'Sacramento',cursive;font-size:clamp(12px,3vw,15px);color:var(--txt-mid);text-align:center;margin-top:8px}
+
+/* ===== SEC 4 VIDEO ===== */
+#sec-video{background:linear-gradient(160deg,#F4F0FF,#FDE8F4,#FFF4EC);text-align:center}
+#sec-video h2{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,5.5vw,38px);font-weight:600;color:var(--txt-dark);margin-bottom:6px}
+#sec-video .sub{font-family:'Lato',sans-serif;font-weight:300;font-size:clamp(12px,2.5vw,15px);letter-spacing:1px;color:var(--txt-soft);margin-bottom:22px}
+.vid-frame{width:min(90vw,620px);aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid rgba(232,99,122,.18);box-shadow:0 16px 50px rgba(92,45,58,.15),0 0 0 6px rgba(255,255,255,.8);margin-bottom:24px;background:#FFF0F5;display:flex;align-items:center;justify-content:center}
+.vid-frame video,.vid-frame iframe{width:100%;height:100%;object-fit:cover;border:none}
+.vid-ph{text-align:center;color:var(--txt-soft)}
+.vid-ph span{font-size:44px;display:block;margin-bottom:10px}
+.vid-ph p{font-family:'Lato',sans-serif;font-size:13px;letter-spacing:1px;line-height:1.8;font-weight:300}
+
+/* ===== SEC 5 MAIN ===== */
+#sec-main{
+  background:
+    radial-gradient(ellipse at 10% 90%,rgba(201,168,212,.3) 0%,transparent 50%),
+    radial-gradient(ellipse at 90% 10%,rgba(242,166,125,.25) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 50%,#FFF0F7 0%,#FDE8F0 100%);
+  text-align:center;overflow-y:auto;justify-content:flex-start;padding-top:52px;padding-bottom:100px;
+}
+.main-deco{font-size:clamp(20px,5vw,30px);letter-spacing:8px;margin-bottom:8px;animation:gentle-float 3s ease-in-out infinite}
+.bday-title{font-family:'Sacramento',cursive;font-size:clamp(40px,10vw,76px);color:var(--rose);text-shadow:0 4px 24px rgba(232,99,122,.22);cursor:pointer;user-select:none;margin-bottom:2px;animation:gentle-float 5s ease-in-out infinite}
+.bday-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,4.5vw,30px);font-weight:400;color:var(--txt-mid);letter-spacing:1px;margin-bottom:16px}
+.msg-card{
+  max-width:680px;width:100%;
+  background:rgba(255,255,255,.65);
+  border:1px solid rgba(232,99,122,.15);border-radius:28px;
+  padding:clamp(28px,6vw,52px) clamp(24px,6vw,50px);
+  backdrop-filter:blur(14px);
+  margin:0 auto 36px;position:relative;
+  box-shadow:0 8px 40px rgba(92,45,58,.08),0 0 0 1px rgba(255,255,255,.6);
+}
+.msg-card::before{content:'"';position:absolute;top:-8px;left:22px;font-size:80px;color:rgba(232,99,122,.1);font-family:'Cormorant Garamond',serif;line-height:1}
+#typed-msg{font-family:'Lato',sans-serif;font-weight:300;font-size:clamp(14px,2.8vw,18px);line-height:2;color:var(--txt-dark);text-align:left;white-space:pre-wrap}
+.cursor{display:inline-block;width:2px;height:1.1em;background:var(--rose);vertical-align:middle;margin-left:2px;animation:blink .7s step-end infinite}
+
+/* TOMBOL */
+.btn{
+  display:inline-block;padding:clamp(12px,3vw,16px) clamp(30px,8vw,52px);
+  background:linear-gradient(135deg,var(--rose),#C0405A);
+  color:#FFF7F9;font-family:'Josefin Sans',sans-serif;
+  font-size:clamp(11px,2.5vw,13px);font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  border:none;border-radius:50px;cursor:pointer;transition:all .3s;
+  box-shadow:0 8px 28px rgba(232,99,122,.35);text-decoration:none;position:relative;overflow:hidden;
+}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18),transparent);border-radius:50px}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(232,99,122,.5)}
+.btn-ghost{
+  display:inline-block;padding:clamp(11px,2.8vw,15px) clamp(24px,6vw,40px);
+  background:transparent;color:var(--txt-soft);font-family:'Josefin Sans',sans-serif;
+  font-size:clamp(10px,2vw,12px);font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  border:1.5px solid rgba(232,99,122,.25);border-radius:50px;cursor:pointer;transition:all .3s;margin-left:10px;text-decoration:none;
+}
+.btn-ghost:hover{border-color:rgba(232,99,122,.5);color:var(--rose)}
+
+/* BALLOON */
+.balloon{position:absolute;bottom:-120px;font-size:clamp(28px,7vw,48px);animation:bal-rise var(--dur) ease-in infinite;animation-delay:var(--del);opacity:0}
+@keyframes bal-rise{0%{opacity:0;bottom:-120px;transform:scale(.8) translateX(0)}10%{opacity:.9}90%{opacity:.6}100%{opacity:0;bottom:110vh;transform:scale(1) translateX(var(--dx))}}
+
+/* EASTER EGG */
+#easter{position:fixed;inset:0;z-index:9998;background:rgba(92,45,58,.5);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+#easter.show{opacity:1;pointer-events:all}
+.e-card{background:linear-gradient(150deg,#FFFAF7,#FFF0F5);border:1px solid rgba(232,99,122,.2);border-radius:28px;padding:44px 38px;text-align:center;max-width:390px;box-shadow:0 40px 100px rgba(92,45,58,.2),0 0 0 1px rgba(255,255,255,.8)}
+.e-card .ico{font-size:52px;display:block;margin-bottom:16px}
+.e-card h3{font-family:'Sacramento',cursive;font-size:34px;color:var(--rose);margin-bottom:12px}
+.e-card p{font-family:'Lato',sans-serif;font-weight:300;font-size:16px;color:var(--txt-mid);line-height:1.9;margin-bottom:24px}
+
+/* FLOATING */
+.fheart{position:fixed;pointer-events:none;z-index:4;opacity:0;animation:fheart-up var(--dur) ease-in infinite;animation-delay:var(--del);font-size:var(--sz)}
+@keyframes fheart-up{0%{opacity:0;transform:translateY(0) rotate(0deg)}15%{opacity:.5}80%{opacity:.15}100%{opacity:0;transform:translateY(-92vh) rotate(var(--dx))}}
+
+/* KEYFRAMES */
+@keyframes gentle-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes gift-float{0%,100%{transform:translateY(0) rotateY(-5deg)}50%{transform:translateY(-12px) rotateY(5deg)}}
+@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+@keyframes pol-in{from{opacity:0;transform:rotate(var(--rot)) translateY(50px)}to{opacity:1;transform:rotate(var(--rot)) translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<canvas id="conf-canvas"></canvas>
+<div id="balloon-layer"></div>
+
+<button id="music-btn">🎵 Musik</button>
+<audio id="bg-music" loop>
+  <!-- Ganti src dengan path musikmu: src="music/lagu.mp3" -->
+  <source src="lagu.mp3" type="audio/mpeg"/>
+</audio>
+
+<!-- ======= SEC 0: COUNTDOWN ======= -->
+<section id="sec-cd" class="section">
+  <div class="deco-line"><span class="deco-text">for someone special</span></div>
+  <div class="cd-eyebrow">Menghitung hari menuju hari terindahmu…</div>
+  <h1>Sesuatu yang Sangat Spesial<br/>Sedang Menunggumu</h1>
+  <p class="cd-sub">✨ sebentar lagi hari penuh cinta itu tiba ✨</p>
+
+  <div class="cd-grid">
+    <div class="cd-item">
+      <div class="cd-heart">
+        <svg viewBox="0 0 100 90"><path class="heart-path" d="M50 80C50 80 8 54 8 29C8 13 21 4 34 7C42 9 47 14 50 20C53 14 58 9 66 7C79 4 92 13 92 29C92 54 50 80 50 80Z"/></svg>
+        <span class="cd-num" id="cd-d">00</span>
+      </div>
+      <span class="cd-lbl">Hari</span>
+    </div>
+    <span class="cd-sep">~</span>
+    <div class="cd-item">
+      <div class="cd-heart">
+        <svg viewBox="0 0 100 90"><path class="heart-path" d="M50 80C50 80 8 54 8 29C8 13 21 4 34 7C42 9 47 14 50 20C53 14 58 9 66 7C79 4 92 13 92 29C92 54 50 80 50 80Z"/></svg>
+        <span class="cd-num" id="cd-h">00</span>
+      </div>
+      <span class="cd-lbl">Jam</span>
+    </div>
+    <span class="cd-sep">~</span>
+    <div class="cd-item">
+      <div class="cd-heart">
+        <svg viewBox="0 0 100 90"><path class="heart-path" d="M50 80C50 80 8 54 8 29C8 13 21 4 34 7C42 9 47 14 50 20C53 14 58 9 66 7C79 4 92 13 92 29C92 54 50 80 50 80Z"/></svg>
+        <span class="cd-num" id="cd-m">00</span>
+      </div>
+      <span class="cd-lbl">Menit</span>
+    </div>
+    <span class="cd-sep">~</span>
+    <div class="cd-item">
+      <div class="cd-heart">
+        <svg viewBox="0 0 100 90"><path class="heart-path" d="M50 80C50 80 8 54 8 29C8 13 21 4 34 7C42 9 47 14 50 20C53 14 58 9 66 7C79 4 92 13 92 29C92 54 50 80 50 80Z"/></svg>
+        <span class="cd-num" id="cd-s">00</span>
+      </div>
+      <span class="cd-lbl">Detik</span>
+    </div>
+  </div>
+
+  <!-- Badge tahun & umur -->
+  <div class="badge-row">
+    <div class="badge">
+      <span class="badge-val" id="cd-year">—</span>
+      <span class="badge-lbl">🎂 Tahun Ini</span>
+    </div>
+    <div class="badge">
+      <span class="badge-val gold" id="cd-age">—</span>
+      <span class="badge-lbl">✨ Tahun Bersinar</span>
+    </div>
+  </div>
+
+  <div class="name-tag">🌸 Fathiyya Salma Azizah 🌸</div>
+</section>
+
+<!-- ======= SEC 1: GIFT ======= -->
+<section id="sec-gift" class="section hidden">
+  <div class="deco-line"><span class="deco-text">a gift for you</span></div>
+  <div class="gift-wrap" id="gift-wrap" onclick="openGift()">
+    <div class="gift-box">
+      <div class="g-lid" id="g-lid"></div>
+      <div class="g-body"></div>
+      <div class="g-bow">🎀</div>
+      <div class="g-shine"></div>
+    </div>
+  </div>
+  <h2>Ada Kejutan Spesial Untukmu, Sayang 🎁</h2>
+  <p class="gsub">Sentuh kado ini dengan penuh rasa penasaran…<br/>
+  <span style="font-size:12px;opacity:.5;display:block;margin-top:6px">Sesuatu yang indah menantimu di baliknya ✨</span></p>
+</section>
+
+<!-- ======= SEC 2: JOKE ======= -->
+<section id="sec-joke" class="section hidden">
+  <span class="joke-ico">🌸</span>
+  <h2>Eh, tunggu sebentar…</h2>
+  <p>Sebelum kamu melihat semua keindahan yang sudah disiapkan untukmu,<br/>
+  ada satu hal yang paling penting dan paling ingin aku katakan:<br/><br/>
+  <em>Kamu adalah hadiah paling indah yang pernah ada di dunia ini. 🌸</em></p>
+  <button class="btn" onclick="goTo('sec-gallery')">📸 &nbsp;Lihat Kenangan Kita</button>
+</section>
+
+<!-- ======= SEC 3: GALLERY ======= -->
+<section id="sec-gallery" class="section hidden">
+  <div class="deco-line"><span class="deco-text">our memories</span></div>
+  <h2>Kenangan Indah Bersamamu</h2>
+  <p class="sub">Setiap bingkai menyimpan senyummu yang tak terlupakan</p>
+  <div class="pol-grid">
+    <!-- Ganti src dengan foto aslimu -->
+    <div class="pol" style="--rot:-3deg;--del:.1s"><img src="foto1.jpg" alt="Foto 1"/><div class="pol-cap">Momen pertama ✨</div></div>
+    <div class="pol" style="--rot:2.5deg;--del:.2s"><img src="foto2.jpg" alt="Foto 2"/><div class="pol-cap">Pap Imut Kamu 🌸💕</div></div>
+    <div class="pol" style="--rot:-2deg;--del:.32s"><img src="foto3.jpg" alt="Foto 3"/><div class="pol-cap">Tawa kita 🌸</div></div>
+    <div class="pol" style="--rot:3deg;--del:.44s"><img src="foto4.jpg" alt="Foto 4"/><div class="pol-cap">Foto Favoritku 🌟</div></div>
+    <div class="pol" style="--rot:-1.5deg;--del:.56s"><img src="foto5.jpg" alt="Foto 5"/><div class="pol-cap">Momen Terbaru 💝</div></div>
+    <div class="pol" style="--rot:2deg;--del:.68s"><img src="foto6.jpg" alt="Foto 6"/><div class="pol-cap">Momen Idul Fitri 💚</div></div>
+  </div>
+  <button class="btn" onclick="goTo('sec-video')">🎬 &nbsp;Lihat Video Kenangan</button>
+</section>
+
+<!-- ======= SEC 4: VIDEO ======= -->
+<section id="sec-video" class="section hidden">
+  <div class="deco-line"><span class="deco-text">a moment to remember</span></div>
+  <h2>Video Kenangan Kita</h2>
+  <p class="sub">Karena ada momen yang hanya bisa dirasakan, bukan sekadar dilihat</p>
+  <div class="vid-frame">
+    <!-- Ganti: <video src="video/kenangan.mp4" controls></video>
+         atau : <iframe src="https://www.youtube.com/embed/ID" allowfullscreen></iframe> -->
+    <video src="kenangan.mp4" controls style="width:100%;height:100%;object-fit:cover"></video>
+  </div>
+  <div>
+    <button class="btn" onclick="goTo('sec-main');startCelebration()">🎉 &nbsp;Lihat Kejutan Utama</button>
+    <button class="btn-ghost" onclick="goTo('sec-main');startCelebration()">Lewati</button>
+  </div>
+</section>
+
+<!-- ======= SEC 5: MAIN ======= -->
+<section id="sec-main" class="section hidden">
+  <div class="main-deco">🌸 ✨ 🌸</div>
+  <div class="bday-title" id="bday-title">Selamat Ulang Tahun</div>
+  <div class="bday-name">— Fathiyya Salma Azizah —</div>
+
+  <!-- Badge tahun & umur di halaman perayaan -->
+  <div class="badge-row" style="margin-bottom:20px">
+    <div class="badge">
+      <span class="badge-val" id="main-year">—</span>
+      <span class="badge-lbl">🎂 Tahun Ini</span>
+    </div>
+    <div class="badge">
+      <span class="badge-val gold" id="main-age">—</span>
+      <span class="badge-lbl">✨ Tahun Bersinar</span>
+    </div>
+  </div>
+
+  <div class="msg-card">
+    <div id="typed-msg"></div><span class="cursor" id="cursor"></span>
+  </div>
+</section>
+
+<!-- ======= EASTER EGG ======= -->
+<div id="easter">
+  <div class="e-card">
+    <span class="ico">💝</span>
+    <h3>Bonus Kejutan Spesial!</h3>
+    <p>Kamu menemukan rahasia kecil yang tersembunyi 🌸<br/><br/>
+    Semoga tahun ini menjadi tahun paling indah, paling penuh cinta, dan paling membahagiakan dalam hidupmu.<br/><br/>
+    <em style="color:var(--rose)">Kamu pantas mendapatkan semua kebaikan di dunia ini. ✨</em></p>
+    <button class="btn" onclick="document.getElementById('easter').classList.remove('show')">Terima Kasih 💖</button>
+  </div>
+</div>
+
+<script>
+/* ===================================
+   KONFIGURASI — Edit bagian ini
+   =================================== */
+const CFG = {
+  birthday  : "08-06",     // MM-DD tanggal lahir
+  birthYear : 2006,        // tahun lahir — untuk hitung umur
+  name      : "Fathiyya Salma Azizah",
+  message   :
+`Fathiyya…
+
+Izinkan aku berhenti sejenak dari segala kebisingan dunia, hanya untuk berbisik satu hal kepadamu — hal yang sudah lama ingin aku sampaikan dengan sepenuh hati:
+
+Terima kasih telah lahir ke dunia ini. 🌸
+
+Setiap kali aku memikirkanmu, aku sadar bahwa hidup ini menyimpan keajaiban-keajaiban kecil yang sering kita abaikan — dan kamu adalah salah satu dari keajaiban itu.
+
+Senyummu adalah rumah bagi hati-hati yang lelah. Tawamu adalah melodi yang bisa membuat hari paling kelabu sekalipun terasa lebih ringan. Kehadiranmu adalah cahaya yang menyinari setiap sudut yang pernah kamu sentuh.
+
+Di hari yang paling istimewa ini, aku ingin kamu tahu: semua impian yang pernah kamu tuliskan di sudut-sudut hatimu, semua doa yang kamu panjatkan di antara sujud-sujudmu yang sunyi — semuanya sedang dalam perjalanan menuju dirimu.
+
+Bertumbuhlah seperti bunga yang tidak pernah meminta izin untuk mekar. Bersinarlah seperti bintang yang tidak pernah ragu untuk bersinar, bahkan di langit yang paling gelap sekalipun.
+
+Selamat ulang tahun, Fathiyya Salma Azizah.
+Semoga Allah memberkahi setiap tarikan napasmu, setiap langkah kakimu, dan setiap detak jantungmu.
+
+Kamu dicintai. Kamu berharga. Kamu luar biasa. 💖🎂✨`,
+
+  confColors : ["#E8637A","#F4A7B5","#D4A853","#C9A8D4","#F2A67D","#B8C9A3","#F0D08A","#FDE8ED","#EBD9F2"],
+  balloons   : ["🎈","🎀","💝","🌸","✨","💕","🌷","🎊","💗","🌺"],
+};
+
+/* ===================================
+   STATE
+   =================================== */
+let curSec = 'sec-cd';
+let celebStarted = false;
+let titleClicks = 0, titleTimer = null;
+let fwParticles = []; // deklarasi awal agar tidak TDZ error
+
+/* ===================================
+   HELPERS
+   =================================== */
+const pad = n => String(n).padStart(2,'0');
+
+function goTo(id){
+  document.getElementById(curSec).classList.add('hidden');
+  curSec = id;
+  document.getElementById(id).classList.remove('hidden');
+  burstConfetti(100);
+}
+
+/* ===================================
+   CEK STATUS ULANG TAHUN
+   Logika:
+   - Kalau HARI INI = hari ulang tahun → perayaan
+   - Kalau sudah lewat ≤ 7 hari → masih perayaan
+   - Kalau sudah lewat > 7 hari → countdown ke tahun depan
+   - Kalau belum → countdown
+   =================================== */
+function getBirthdayStatus(){
+  const now = new Date();
+  const [mm,dd] = CFG.birthday.split('-').map(Number);
+
+  // Ulang tahun tahun ini
+  const bdThisYear = new Date(now.getFullYear(), mm-1, dd, 0,0,0);
+  // Selisih milidetik dari ulang tahun tahun ini ke sekarang
+  const diffFromBd = now - bdThisYear; // positif = sudah lewat, negatif = belum
+  const daysPassed = diffFromBd / 86400000;
+
+  if(diffFromBd >= 0 && daysPassed <= 7){
+    // Sedang dalam window perayaan (hari H sampai 7 hari setelahnya)
+    return { mode: 'celebrate', bdYear: now.getFullYear() };
+  } else if(diffFromBd < 0){
+    // Belum ulang tahun tahun ini → countdown ke bdThisYear
+    return { mode: 'countdown', target: bdThisYear, bdYear: now.getFullYear() };
+  } else {
+    // Sudah lewat > 7 hari → countdown ke tahun depan
+    const bdNextYear = new Date(now.getFullYear()+1, mm-1, dd, 0,0,0);
+    return { mode: 'countdown', target: bdNextYear, bdYear: now.getFullYear()+1 };
+  }
+}
+
+/* ===================================
+   ISI TAHUN & UMUR
+   =================================== */
+function fillYearAge(bdYear){
+  const age = bdYear - CFG.birthYear;
+  ['cd-year','main-year'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = bdYear;
+  });
+  ['cd-age','main-age'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = age;
+  });
+}
+
+/* ===================================
+   COUNTDOWN
+   =================================== */
+function initCountdown(){
+  const status = getBirthdayStatus();
+  fillYearAge(status.bdYear);
+
+  // Kalau sedang hari ulang tahun / dalam 7 hari → langsung perayaan
+  if(status.mode === 'celebrate'){
+    setTimeout(()=>{ goTo('sec-gift'); }, 800);
+    return;
+  }
+
+  // Mode countdown biasa
+  const target = status.target.getTime();
+  function tick(){
+    const diff = target - Date.now();
+    if(diff <= 0){
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent='00');
+      clearInterval(timer);
+      setTimeout(()=>goTo('sec-gift'), 700);
+      return;
+    }
+    document.getElementById('cd-d').textContent = pad(Math.floor(diff/86400000));
+    document.getElementById('cd-h').textContent = pad(Math.floor(diff%86400000/3600000));
+    document.getElementById('cd-m').textContent = pad(Math.floor(diff%3600000/60000));
+    document.getElementById('cd-s').textContent = pad(Math.floor(diff%60000/1000));
+  }
+  const timer = setInterval(tick,1000); tick();
+}
+
+/* ===================================
+   BG CANVAS — sparkles
+   =================================== */
+const bgC = document.getElementById('bg-canvas');
+const bgX = bgC.getContext('2d');
+let sparkles = [];
+
+function resizeBg(){
+  bgC.width = window.innerWidth; bgC.height = window.innerHeight; makeSparkles();
+}
+function makeSparkles(){
+  sparkles = [];
+  const n = Math.floor(bgC.width*bgC.height/3000);
+  const cols = ['232,99,122','212,168,83','201,168,212','242,166,125','184,201,163'];
+  for(let i=0;i<n;i++) sparkles.push({
+    x:Math.random()*bgC.width, y:Math.random()*bgC.height,
+    r:Math.random()*2+.4, sp:Math.random()*.008+.003, ph:Math.random()*Math.PI*2,
+    col:cols[Math.floor(Math.random()*cols.length)]
+  });
+}
+function drawBg(){
+  bgX.clearRect(0,0,bgC.width,bgC.height);
+  const t = Date.now()/1000;
+  sparkles.forEach(s=>{
+    const a = .15+.6*Math.abs(Math.sin(t*s.sp*8+s.ph));
+    bgX.beginPath(); bgX.arc(s.x,s.y,s.r,0,Math.PI*2);
+    bgX.fillStyle = `rgba(${s.col},${a})`; bgX.fill();
+  });
+  fwParticles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy; p.vy+=.04; p.a-=p.dec;
+    if(p.a<=0) return;
+    bgX.beginPath(); bgX.arc(p.x,p.y,p.r,0,Math.PI*2);
+    bgX.fillStyle=p.col; bgX.globalAlpha=p.a; bgX.fill(); bgX.globalAlpha=1;
+  });
+  fwParticles = fwParticles.filter(p=>p.a>0);
+  requestAnimationFrame(drawBg);
+}
+resizeBg(); window.addEventListener('resize',resizeBg); drawBg();
+
+/* ===================================
+   FLOATING PETALS
+   =================================== */
+function makeFloatingPetals(){
+  const emojis=['🌸','💕','✨','🌷','💝','🌺','💗','🫧'];
+  for(let i=0;i<18;i++){
+    const el=document.createElement('div'); el.className='fheart';
+    el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    const left=Math.random()*94, dur=10+Math.random()*12, del=Math.random()*15;
+    const sz=(12+Math.random()*10)+'px', dx=((Math.random()-.5)*200)+'deg';
+    el.style.cssText=`left:${left}vw;bottom:0;--dur:${dur}s;--del:${del}s;--sz:${sz};--dx:${dx}`;
+    document.body.appendChild(el);
+  }
+}
+makeFloatingPetals();
+
+/* ===================================
+   MUSIK
+   =================================== */
+const musicBtn=document.getElementById('music-btn');
+const bgMusic=document.getElementById('bg-music');
+let playing=false;
+musicBtn.addEventListener('click',()=>{
+  if(!playing){bgMusic.play().catch(()=>{});musicBtn.textContent='🔇 Musik';playing=true;}
+  else{bgMusic.pause();musicBtn.textContent='🎵 Musik';playing=false;}
+});
+
+/* ===================================
+   BUKA KADO
+   =================================== */
+function openGift(){
+  const w=document.getElementById('gift-wrap');
+  if(w.classList.contains('opened')) return;
+  w.classList.add('opened'); burstConfetti(150);
+  setTimeout(()=>goTo('sec-joke'),1100);
+}
+
+/* ===================================
+   CONFETTI
+   =================================== */
+const ccv=document.getElementById('conf-canvas');
+const ccx=ccv.getContext('2d');
+let cparts=[], confRunning=false;
+function resizeConf(){ccv.width=window.innerWidth;ccv.height=window.innerHeight;}
+resizeConf(); window.addEventListener('resize',resizeConf);
+
+function burstConfetti(n){
+  n=n||100;
+  for(let i=0;i<n;i++) cparts.push({
+    x:Math.random()*ccv.width, y:Math.random()*ccv.height*.4,
+    w:Math.random()*11+4, h:Math.random()*5+2,
+    col:CFG.confColors[Math.floor(Math.random()*CFG.confColors.length)],
+    vx:(Math.random()-.5)*8, vy:Math.random()*5+2,
+    rot:Math.random()*360, rs:(Math.random()-.5)*10,
+    a:1, dec:Math.random()*.01+.004,
+  });
+  if(!confRunning) runConf();
+}
+function runConf(){
+  confRunning=true;
+  (function loop(){
+    ccx.clearRect(0,0,ccv.width,ccv.height);
+    cparts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.rot+=p.rs;p.a-=p.dec;p.vy+=.06;
+      if(p.a<=0) return;
+      ccx.save();ccx.globalAlpha=p.a;ccx.translate(p.x,p.y);
+      ccx.rotate(p.rot*Math.PI/180);ccx.fillStyle=p.col;
+      ccx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ccx.restore();
+    });
+    cparts=cparts.filter(p=>p.a>0);
+    if(cparts.length>0) requestAnimationFrame(loop); else confRunning=false;
+  })();
+}
+
+/* ===================================
+   BALON
+   =================================== */
+function startBalloons(){
+  const bl=document.getElementById('balloon-layer'); bl.innerHTML='';
+  for(let i=0;i<22;i++){
+    const b=document.createElement('div'); b.className='balloon';
+    b.textContent=CFG.balloons[Math.floor(Math.random()*CFG.balloons.length)];
+    const left=Math.random()*94, dur=8+Math.random()*9, del=Math.random()*13;
+    const dx=((Math.random()-.5)*150)+'px';
+    b.style.cssText=`left:${left}vw;--dur:${dur}s;--del:${del}s;--dx:${dx}`;
+    bl.appendChild(b);
+  }
+}
+
+/* ===================================
+   FIREWORKS
+   =================================== */
+function firework(){
+  const x=Math.random()*bgC.width, y=Math.random()*bgC.height*.5;
+  const col=CFG.confColors[Math.floor(Math.random()*CFG.confColors.length)];
+  for(let i=0;i<72;i++){
+    const ang=(i/72)*Math.PI*2, spd=Math.random()*5+1;
+    fwParticles.push({x,y,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,a:1,dec:.013+Math.random()*.01,r:Math.random()*2.5+.5,col});
+  }
+}
+function startFireworks(){
+  firework(); setInterval(()=>{firework();burstConfetti(55);},2800);
+}
+
+/* ===================================
+   TYPING
+   =================================== */
+function typeMsg(text,el,cur,speed){
+  speed=speed||26; let i=0; el.textContent=''; cur.style.display='inline-block';
+  (function next(){if(i<text.length){el.textContent+=text[i++];setTimeout(next,speed);}})();
+}
+
+/* ===================================
+   START CELEBRATION
+   =================================== */
+function startCelebration(){
+  if(celebStarted) return; celebStarted=true;
+  startBalloons(); startFireworks();
+  setTimeout(()=>{
+    typeMsg(CFG.message,document.getElementById('typed-msg'),document.getElementById('cursor'),28);
+  },500);
+  setInterval(()=>burstConfetti(70),5500);
+}
+
+/* ===================================
+   EASTER EGG
+   =================================== */
+document.getElementById('bday-title').addEventListener('click',()=>{
+  titleClicks++;
+  clearTimeout(titleTimer);
+  titleTimer=setTimeout(()=>titleClicks=0,1500);
+  if(titleClicks>=5){
+    titleClicks=0;
+    document.getElementById('easter').classList.add('show');
+    burstConfetti(200);
+  }
+});
+
+/* ===================================
+   INIT
+   =================================== */
+initCountdown();
+</script>
+</body>
+</html>
